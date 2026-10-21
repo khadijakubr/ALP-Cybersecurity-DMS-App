@@ -1,0 +1,8 @@
+# FILE: .gitignore
+# FUNGSI: Daftar file/folder yang TIDAK boleh ikut ke Git/GitHub.
+# KENAPA: .env berisi Google Client Secret -> kalau ke-push, bisa disalahgunakan.
+# ASAL: REUSE dari google-oauth2/.gitignore + tambahan.
+node_modules/
+.env
+*.log
+.DS_Store

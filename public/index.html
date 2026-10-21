@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DMS Demo - JWT, OAuth, RBAC, ABAC</title>
+    <link rel="stylesheet" href="/style.css" />
+    <!-- defer: jalankan app.js setelah HTML selesai diparse -->
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <h1>DMS Demo</h1>
+    <p class="sub">JWT &middot; OAuth 2.0 &middot; RBAC &middot; ABAC</p>
+
+    <hr />
+
+    <!-- Status diletakkan di luar appPanel agar error login tetap terlihat. -->
+    <div id="statusBox" class="status" hidden></div>
+
+    <!-- ================= LOGIN ================= -->
+    <section id="authPanel">
+      <h2>Login</h2>
+
+      <form id="loginForm">
+        <label>
+          Username
+          <input id="username" autocomplete="username" placeholder="admin" required />
+        </label>
+
+        <label>
+          Password
+          <input id="password" type="password" autocomplete="current-password" placeholder="admin123" required />
+        </label>
+
+        <button type="submit">Login (JWT)</button>
+      </form>
+
+      <p>atau</p>
+      <p><a href="/auth/google">Login with Google</a></p>
+
+      <p class="hint">
+        Akun demo: <strong>admin/admin123</strong>,
+        <strong>manager/manager123</strong>, <strong>staff/staff123</strong>
+      </p>
+    </section>
+
+    <!-- ================= APLIKASI ================= -->
+    <div id="appPanel" hidden>
+      <p id="userBar" class="muted"></p>
+
+      <hr />
+      <h2>Profil</h2>
+      <div id="profileBox"></div>
+      <p><button id="logoutBtn" class="link" type="button">Logout</button></p>
+
+      <hr />
+      <h2>Buat Dokumen</h2>
+      <form id="createForm">
+        <label>
+          Judul
+          <input id="docTitle" placeholder="Dokumen baru" required />
+        </label>
+
+        <label>
+          Classification
+          <select id="docClassification">
+            <option value="public">public</option>
+            <option value="confidential">confidential</option>
+            <option value="secret">secret</option>
+          </select>
+        </label>
+
+        <button type="submit">Buat</button>
+      </form>
+      <p class="hint">
+        Ditolak jika classification melebihi clearance Anda.
+      </p>
+
+      <hr />
+      <h2>Dokumen yang Bisa Diakses <span id="docsCounter" class="muted"></span></h2>
+      <p><button id="refreshDocs" class="link" type="button">Muat ulang</button></p>
+      <ul id="docList" class="plain"></ul>
+
+      <div id="adminSection" hidden>
+        <hr />
+        <h2>Admin: Daftar User (RBAC)</h2>
+        <ul id="userList" class="plain"></ul>
+        <p><button id="refreshUsers" class="link" type="button">Muat ulang</button></p>
+      </div>
+
+      <hr />
+      <h2>Detail / Log</h2>
+      <pre id="logBox">Belum ada aksi.</pre>
+    </div>
+  </body>
+</html>

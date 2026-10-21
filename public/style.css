@@ -1,0 +1,94 @@
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 20px;
+  line-height: 1.55;
+  color: #222;
+  background: #fff;
+}
+
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 0 0 10px; }
+.sub { color: #666; margin: 0 0 20px; font-size: 14px; }
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 24px 0;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+input,
+select {
+  display: block;
+  font: inherit;
+  padding: 6px 8px;
+  margin-top: 4px;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+button {
+  font: inherit;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: 1px solid #888;
+  background: #f2f2f2;
+  border-radius: 4px;
+}
+
+/* Tombol yang tampil seperti tautan (Detail, Hapus, Logout). */
+button.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #0645ad;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a { color: #0645ad; }
+
+ul.plain {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.plain li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.status {
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin: 16px 0;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.status.ok  { background: #eef7ee; border: 1px solid #b7dbb7; }
+.status.err { background: #fdeeee; border: 1px solid #e3b7b7; }
+
+.muted { color: #666; font-size: 14px; }
+.hint  { color: #666; font-size: 13px; }
+.tag   { color: #555; font-size: 13px; }
+
+pre#logBox {
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  padding: 10px;
+  font-size: 12px;
+  overflow: auto;
+}
+
+[hidden] { display: none !important; }

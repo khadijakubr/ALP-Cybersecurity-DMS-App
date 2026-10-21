@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Login Gagal</h1>
+    <p>Autentikasi dengan Google gagal atau dibatalkan.</p>
+    <% if (error) { %>
+    <p><strong>Error:</strong> <%= error %></p>
+    <% } %>
+    <p><a href="/">Coba Lagi</a></p>
+  </body>
+</html>
