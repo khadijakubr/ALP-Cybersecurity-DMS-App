@@ -13,7 +13,7 @@ Data disimpan **in-memory** agar fokus pada logika autentikasi dan otorisasi, bu
 
 ## Daftar Isi
 
-1. [Fitur yang Dibuktikan](#1-fitur-yang-dibuktikan)
+1. [Fitur](#1-fitur)
 2. [Teknologi](#2-teknologi)
 3. [Struktur Proyek](#3-struktur-proyek)
 4. [Cara Menjalankan](#4-cara-menjalankan)
@@ -29,7 +29,7 @@ Data disimpan **in-memory** agar fokus pada logika autentikasi dan otorisasi, bu
 
 ---
 
-## 1. Fitur yang Dibuktikan
+## 1. Fitur
 
 | Requirement | Implementasi | Bukti |
 |---|---|---|
@@ -123,8 +123,6 @@ GOOGLE_CLIENT_ID=isi-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=isi-client-secret
 CALLBACK_URL=http://localhost:3000/auth/google/callback
 ```
-
-> `.env` sudah masuk `.gitignore`. **Jangan pernah commit file ini.**
 
 ### 4.4 Konfigurasi Google OAuth (opsional)
 
@@ -389,7 +387,7 @@ Alasan penolakan: `invalid_classification`, `insufficient_clearance`.
 
 Alasan: `role_not_allowed`, `department_mismatch`.
 
-> Catatan desain: `admin` **juga** dibatasi departemen di endpoint ini agar aturan AND benar-benar murni. Konsekuensinya admin IT tidak bisa menghapus dokumen HR. Trade-off ini disengaja dan dijelaskan di laporan.
+> Catatan desain: `admin` **juga** dibatasi departemen di endpoint ini agar aturan AND benar-benar murni. Konsekuensinya admin IT tidak bisa menghapus dokumen HR. Trade-off ini disengaja.
 
 **B. Data sensitif — `GET /documents/secret`**
 
@@ -740,65 +738,6 @@ Ringkasan: admin **6**, manager **2**, staff **2**.
 | **400** | Input tidak valid (mis. ID bukan angka, title kosong) |
 | **404** | Resource tidak ditemukan |
 | **201** | Resource berhasil dibuat |
-
----
-
-## 12. Catatan Desain & Keamanan
-
-1. **JWT stateless** — server tidak menyimpan session login. Access token 1 jam, refresh token 7 hari.
-2. **Atribut tidak disimpan di token** — middleware mengambil data terbaru dari `data.js`, sehingga perubahan `role`/`department`/`clearance` langsung berlaku.
-3. **OAuth tetap menghasilkan JWT aplikasi** — aturan RBAC/ABAC seragam untuk semua cara login.
-4. **User OAuth baru diberi atribut terendah** (`staff`, `low`, `IT`) — tidak mungkin langsung menjadi admin. Pendaftar lokal juga dipaksa `staff`.
-5. **Token di localStorage** — memudahkan demo, tetapi rentan XSS. Produksi sebaiknya memakai cookie `httpOnly` + `SameSite`.
-6. **`.env` diabaikan Git** — Client Secret tidak boleh masuk repository.
-7. **In-memory** — data reset saat restart; cocok untuk demonstrasi, bukan produksi.
-8. **Admin dibatasi departemen pada DELETE** — konsekuensi aturan AND murni sesuai contoh soal.
-9. **Policy mengembalikan alasan** (`reason`) — memudahkan audit dan demo, bukan hanya `true/false`.
-10. **Route order** — `/documents/secret` harus sebelum `/documents/:id`.
-11. **Counter ID memakai `++`** — nilai awal 4 (user) dan 7 (dokumen), dinaikkan saat create sehingga ID tidak terpakai ulang setelah penghapusan.
-
----
-
-## 13. Checklist Push ke GitHub
-
-### 13.1 Sebelum push
-
-- [ ] `npm install` dan `npm start` berhasil.
-- [ ] Login ketiga akun berhasil.
-- [ ] Demo RBAC, ABAC, dan gabungan sesuai matriks.
-- [ ] `.env` **tidak** ikut ter-commit.
-- [ ] `git status` tidak menampilkan `.env` atau `node_modules`.
-
-### 13.2 Perintah Git
-
-Jika `dms-app` dijadikan root repository:
-
-```bash
-cd dms-app
-git init
-git add .
-git status          # pastikan .env TIDAK muncul
-git commit -m "DMS App: JWT, OAuth 2.0, RBAC, dan ABAC"
-git branch -M main
-git remote add origin https://github.com/USERNAME/dms-app.git
-git push -u origin main
-```
-
-Jika repository sudah ada:
-
-```bash
-cd dms-app
-git add .
-git commit -m "Update laporan dan perbaikan aplikasi"
-git push
-```
-
-### 13.3 Jika `.env` terlanjur ter-commit
-
-1. Hapus dari tracking: `git rm --cached .env`
-2. Pastikan `.env` ada di `.gitignore`.
-3. Commit perubahan.
-4. **Rotate** Google Client Secret di Google Cloud Console, karena secret lama sudah bocor di riwayat Git.
 
 ---
 
