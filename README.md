@@ -9,13 +9,6 @@ Aplikasi **Document Management System (DMS)** berbasis **Node.js + Express** yan
 
 Data disimpan **in-memory** agar fokus pada logika autentikasi dan otorisasi, bukan konfigurasi database.
 
-| Identitas | |
-|---|---|
-| Nama | _(isi nama)_ |
-| NIM | _(isi NIM)_ |
-| Mata Kuliah | Keamanan Aplikasi |
-| Repository | `https://github.com/USERNAME/dms-app` |
-
 ---
 
 ## Daftar Isi
